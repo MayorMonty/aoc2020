@@ -1,6 +1,5 @@
 use crate::input;
 use std::{io, str::FromStr};
-use regex::{Regex, Captures};
 
 #[derive(Debug)]
 pub struct Password {
@@ -41,7 +40,7 @@ impl FromStr for Password {
 
 // Validates a password to see if it's compliant with spec A (a min and max
 // occurence of a specific char )
-pub fn validateA(password: &Password) -> bool {
+pub fn validate_a(password: &Password) -> bool {
     let occurances = password.password.matches(password.policy_char).count();
 
     password.policy_min <= occurances && occurances <= password.policy_max
@@ -49,7 +48,7 @@ pub fn validateA(password: &Password) -> bool {
 
 // Validates a password against spec B (a char must exist in 1 of 2 places, but
 // not both)
-pub fn validateB(password: &Password) -> bool {
+pub fn validate_b(password: &Password) -> bool {
     
     let in_first = password.password.chars().nth(password.policy_min - 1).unwrap_or('\0') == password.policy_char;
     let in_second =  password.password.chars().nth(password.policy_max - 1).unwrap_or('\0') == password.policy_char;
@@ -61,13 +60,13 @@ pub fn validateB(password: &Password) -> bool {
 pub fn run() -> io::Result<usize> {   
     let items = input::from_file::<Password>(&"src/day2/input.txt")?;
 
-    let mut countA = 0;
-    let mut countB = 0;
+    let mut count_a = 0;
+    let mut count_b = 0;
 
     for pw in items {
-        if validateA(&pw) { countA += 1 };
-        if validateB(&pw) { countB += 1 };
+        if validate_a(&pw) { count_a += 1 };
+        if validate_b(&pw) { count_b += 1 };
     }
 
-    Ok(countB)
+    Ok(count_b)
 }
