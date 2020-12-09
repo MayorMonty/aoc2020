@@ -57,7 +57,7 @@ pub fn validate_b(password: &Password) -> bool {
 
 }
 
-pub fn run() -> io::Result<usize> {   
+pub fn run() -> io::Result<(usize, usize)> {   
     let items = input::from_file::<Password>(&"src/day2/input.txt")?;
 
     let mut count_a = 0;
@@ -68,5 +68,5 @@ pub fn run() -> io::Result<usize> {
         if validate_b(&pw) { count_b += 1 };
     }
 
-    Ok(count_b)
+    Ok((count_a, count_b))
 }

@@ -1,9 +1,10 @@
 mod input;
 mod day1;
 mod day2;
+mod day3;
 
 fn main() {
-    let answer = day2::run();
+    let answer = day3::run();
 
-    println!("The day 2 solution is {:?}", answer);
+    println!("The day 3 solution is {:?}", answer);
 }
