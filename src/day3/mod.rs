@@ -50,7 +50,7 @@ pub fn num_trees(x: usize, y: usize, trip: &mut TobogganArea) -> usize {
 }
 
 pub fn run() -> io::Result<(usize, usize)> {   
-    let items = input::from_file::<String>(&"src/day3/input.txt", b'\n')?;
+    let items = input::from_file::<String>(&"src/day3/input.txt", "\n")?;
     let mut trip = TobogganArea::from(items);
 
     // Part A

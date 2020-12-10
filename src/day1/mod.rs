@@ -2,7 +2,7 @@ use crate::input;
 use std::io;
 
 pub fn run() -> io::Result<usize> {   
-    let items = input::from_file::<usize>(&"src/day1/input.txt", b'\n')?;
+    let items = input::from_file::<usize>(&"src/day1/input.txt", "\n")?;
 
     for a in &items {
         for b in &items {

@@ -1,29 +1,22 @@
 use std::{
-    fs::File,
+    fs,
     io::BufRead,
     io::{self, BufReader},
     path::Path,
-    str::FromStr,
+    str::{FromStr},
 };
 
-pub fn from_file<T: FromStr>(filename: &'static str, delimiter: u8) -> io::Result<Vec<T>>
+pub fn from_file<'a, S: FromStr>(filename: &'static str, delimiter: &'a str) -> io::Result<Vec<S>>
 where
-    <T as std::str::FromStr>::Err: std::fmt::Debug,
-{
-    let path = Path::new(filename);
-    let file = File::open(&path)?;
+    <S as std::str::FromStr>::Err: std::fmt::Debug,
+{   
+    // Read to string, and then split based on delimiter
+    let contents = fs::read_to_string(filename)?;
 
-    // Read the file line by line
-    let lines = BufReader::new(file).split(delimiter).map(|l| String::from_utf8(l.unwrap()));
-
-    // Create a vector to hold the numbers, with max capacity of the lower bound
-    let mut items: Vec<T> = Vec::with_capacity(lines.size_hint().0);
-    for line in lines {
-        if let Ok(num) = line {
-            let num = num.parse::<T>().unwrap();
-            items.push(num);
-        };
-    }
-
-    Ok(items)
+    // Split a the delimiter, and then parse individual items according to the
+    // FromStr trait
+    Ok(contents.split(delimiter)
+        .into_iter()
+        .map(|item| item.parse::<S>().unwrap())
+        .collect())
 }

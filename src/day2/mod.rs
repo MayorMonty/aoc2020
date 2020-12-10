@@ -58,7 +58,7 @@ pub fn validate_b(password: &Password) -> bool {
 }
 
 pub fn run() -> io::Result<(usize, usize)> {   
-    let items = input::from_file::<Password>(&"src/day2/input.txt", b'\n')?;
+    let items = input::from_file::<Password>(&"src/day2/input.txt", "\n")?;
 
     let mut count_a = 0;
     let mut count_b = 0;
