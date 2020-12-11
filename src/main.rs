@@ -6,7 +6,9 @@ mod day4;
 mod input;
 
 fn main() {
-    let answer = day4::run();
+    let a = day4::run_a();
+    let b = day4::run_b();
 
-    println!("The day 4 solution is {:?}", answer);
+    println!("The day 4A solution is {:?}", a);
+    println!("The day 4B solution is {:?}", b);
 }
